@@ -1,69 +1,57 @@
-import { personajes } from './personajes'
+import { recetas } from './recetas'
 import styled from 'styled-components';
+import Card from './Card'
+import Imagen from './Imagen'
+import Title from './Title';
+import Type from './Type'
+import Cat from './Cat'
+import Download from './Download';
 const App = () => {
-  return (<>
+  return (
    <Contenedor>
-      {
-        personajes.map( personaje => {
-          console.log(personaje)
-          return (
-            <Card>
-             
-              <Imagen>
-                <img src={personaje.image} alt="" />
-              </Imagen>
-              <div>
-                <Title>{personaje.name}</Title>
-                <Gender>{personaje.gender}</Gender>
-              </div>
-              <ListEpisode>
-                {personaje['episode'].map((e,i) => {
+     {
+        recetas.map(receta => {
+          console.log(receta)
+          return(
+            <Card key={receta.id}>
+              <Imagen 
+                url={receta.img_gde} 
+                tile={receta.title} />
+              <Title>{receta.title}</Title>
+              <Type>{receta.tipo}</Type>
+              <CatContainer>
+                {receta.categorias.map(categoria => {
                   return(
-                    <a href={e}>Ver episodio {i}</a>
+                    <Cat 
+                      key={categoria.id}
+                      url={categoria.icon} 
+                      title={categoria.title}
+                    />
                   )
                 })}
-              </ListEpisode>
+              </CatContainer>
+              <Download 
+                url={receta.pdf}
+              />
             </Card>
           )
         })
-      }
+     }
    </Contenedor>
-  </>);
+  );
 }
 const Contenedor = styled.section`
   padding: 50px 5% ;
   display: grid ;
-  grid-template-columns: repeat(4, 1fr) ;
+  grid-template-columns: repeat(4, 3fr) ;
   gap:30px;
 `
-const Card = styled.div`
-  width: 100% ;
-  border-radius:10px ;
-  border: 1px solid grey ;
-  overflow: hidden ;
-  display: grid ;
-  grid-template-columns: 1fr 1fr ;
-`
-const Imagen = styled.div`
-  img{
-    display:block ;
-    max-width:100px ;
-  }
+const CatContainer = styled.section`
+  display: flex ;
+  flex-wrap: wrap ;
+  gap:5px;
+  padding:5px ;
 `
 
-const Title = styled.h2`
-  color: #030303 ;
-`
-const Gender = styled.h2`
-  color: grey ;
-  font-size: 12px ;
-`
-const ListEpisode = styled.div`
-  width:100% ;
-  height:100px ;
-  overflow-y: scroll ;
-  a{
-    display:block ;
-  }
-`
+
 export default App
