@@ -8,6 +8,7 @@ const App = () => {
           console.log(personaje)
           return (
             <Card>
+             
               <Imagen>
                 <img src={personaje.image} alt="" />
               </Imagen>
@@ -15,6 +16,13 @@ const App = () => {
                 <Title>{personaje.name}</Title>
                 <Gender>{personaje.gender}</Gender>
               </div>
+              <ListEpisode>
+                {personaje['episode'].map((e,i) => {
+                  return(
+                    <a href={e}>Ver episodio {i}</a>
+                  )
+                })}
+              </ListEpisode>
             </Card>
           )
         })
@@ -33,7 +41,8 @@ const Card = styled.div`
   border-radius:10px ;
   border: 1px solid grey ;
   overflow: hidden ;
-  display: flex ;
+  display: grid ;
+  grid-template-columns: 1fr 1fr ;
 `
 const Imagen = styled.div`
   img{
@@ -48,5 +57,13 @@ const Title = styled.h2`
 const Gender = styled.h2`
   color: grey ;
   font-size: 12px ;
+`
+const ListEpisode = styled.div`
+  width:100% ;
+  height:100px ;
+  overflow-y: scroll ;
+  a{
+    display:block ;
+  }
 `
 export default App
